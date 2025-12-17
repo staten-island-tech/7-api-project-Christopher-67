@@ -8,6 +8,7 @@ def BinaryJazz(jazz):
     
     data = response.json()
     return {
+        "name": data["name"],
         "instruments": data["instruments"],
         "beats": data["beats"],
         "adjectives": data["adjectives"],
@@ -17,5 +18,5 @@ def BinaryJazz(jazz):
         "genres": data["genres"],
     }
 
-pokemon = BinaryJazz("Bulbasaur")
-print(pokemon)
+generate = BinaryJazz("worldmusik")
+print(generate)
