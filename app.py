@@ -1,7 +1,7 @@
 import requests
 
 def BinaryJazz(jazz):
-    response = requests.get(f"https://binaryjazz.us/genrenator-api/{jazz.lower()}")
+    response = requests.get(f"https://binaryjazz.us/genrenator-api/v1/genre/25{jazz()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
@@ -18,5 +18,7 @@ def BinaryJazz(jazz):
         "genres": data["genres"],
     }
 
-generate = BinaryJazz("worldmusik")
-print(generate)
+generate = BinaryJazz("genre")
+
+for key, value in generate.items():
+    print(f"{key.title()}: {value}")
