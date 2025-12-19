@@ -18,7 +18,7 @@ def BinaryJazz(jazz):
         "genres": data["genres"],
     }
 
-generate = BinaryJazz("genre")
+generate = BinaryJazz("25")
 
 for key, value in generate.items():
     print(f"{key.title()}: {value}")
