@@ -1,24 +1,15 @@
 import requests
 
-def BinaryJazz(jazz):
-    response = requests.get(f"https://binaryjazz.us/genrenator-api/v1/genre/25{jazz()}")
+def AmiiboAPI(amiibo:str):
+    response = requests.get(f"https://www.amiiboapi.com/api/amiibo/?name={amiibo.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
     
     data = response.json()
-    return {
-        "name": data["name"],
-        "instruments": data["instruments"],
-        "beats": data["beats"],
-        "adjectives": data["adjectives"],
-        "prefixes": data["prefixes"],
-        "suffixes": data["suffixes"],
-        "regions": data["regions"],
-        "genres": data["genres"],
-    }
 
-generate = BinaryJazz("25")
+    return data["amiibo"]
 
-for key, value in generate.items():
-    print(f"{key.title()}: {value}")
+my_amiibo = AmiiboAPI("Kirby")
+
+print(my_amiibo)
