@@ -26,12 +26,12 @@ class WebImage:
      def get(self):
           return self.image
 
-my_amiibo = AmiiboAPI("link")
+my_amiibo = AmiiboAPI("mario")
 
 window = tk.Tk()
 window.title("unc")
 
-img = WebImage(get_url_link("link", 3)).get()
+img = WebImage(get_url_link("mario", 8)).get()
 
 label = tk.Label(window, image=img)
 label.pack(padx=20, pady=20)
