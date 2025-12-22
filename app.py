@@ -15,8 +15,8 @@ def AmiiboAPI(amiibo:str):
 
     return data["amiibo"]
 
-def get_url_link(amiibo:str):
-         return AmiiboAPI(amiibo)[0].get("image")
+def get_url_link(amiibo:str, amiibo_id:int):
+         return AmiiboAPI(amiibo)[amiibo_id - 1].get("image")
 
 class WebImage:
      def __init__(self,url):
@@ -26,12 +26,12 @@ class WebImage:
      def get(self):
           return self.image
 
-my_amiibo = AmiiboAPI("Kirby")
+my_amiibo = AmiiboAPI("link")
 
 window = tk.Tk()
 window.title("unc")
 
-img = WebImage(get_url_link("link")).get()
+img = WebImage(get_url_link("link", 3)).get()
 
 label = tk.Label(window, image=img)
 label.pack(padx=20, pady=20)
