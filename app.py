@@ -1,5 +1,6 @@
 import requests
 import tkinter as tk
+from tkinter import ttk
 from PIL import ImageTk, Image
 from io import BytesIO
 
@@ -31,9 +32,50 @@ my_amiibo = AmiiboAPI("mario")
 window = tk.Tk()
 window.title("unc")
 
-img = WebImage(get_url_link("mario", 8)).get()
-
+img = WebImage(my_amiibo[0]["image"]).get()
 label = tk.Label(window, image=img)
-label.pack(padx=20, pady=20)
+label.image = img
+label.pack(padx=50, pady=50)
+
+name_var = tk.StringVar()
+char_var = tk.StringVar()
+series_var = tk.StringVar()
+game_var = tk.StringVar()
+type_var = tk.StringVar()
+
+info_frame = tk.Frame(window)
+info_frame.pack(anchor="w", padx=20)
+
+tk.Label(info_frame, textvariable=name_var).pack(anchor="w")
+tk.Label(info_frame, textvariable=char_var).pack(anchor="w")
+tk.Label(info_frame, textvariable=series_var).pack(anchor="w")
+tk.Label(info_frame, textvariable=game_var).pack(anchor="w")
+tk.Label(info_frame, textvariable=type_var).pack(anchor="w")
+
+
+choices = [str(i) for i in range(1, len(my_amiibo) + 1)]
+dropdown = ttk.Combobox(window, values=choices, width=5)
+dropdown.current(0)
+dropdown.place(relx=0, rely=0, anchor="nw")
+label.image = img
+
+def update_image(event=None):
+    amiibo_id = int(dropdown.get()) - 1
+    data = my_amiibo[amiibo_id]
+
+    new_img = WebImage(data["image"]).get()
+    label.config(image=new_img)
+    label.image = new_img
+
+    name_var.set(f"Name: {data['name']}")
+    char_var.set(f"Character: {data['character']}")
+    series_var.set(f"Amiibo Series: {data['amiiboSeries']}")
+    game_var.set(f"Game Series: {data['gameSeries']}")
+    type_var.set(f"Type: {data['type']}")
+
+dropdown.bind("<<ComboboxSelected>>", update_image)
+
+update_image()
+
 window.mainloop()
 print(my_amiibo)
